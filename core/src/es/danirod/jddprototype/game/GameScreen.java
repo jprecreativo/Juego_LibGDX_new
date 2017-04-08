@@ -116,18 +116,18 @@ public class GameScreen extends BaseScreen {
         player = factory.createPlayer(world, new Vector2(1.5f, 1.5f));
 
         // Array para las dimesiones de los suelos.
-        int[] coordSuelos = {0,1000,1, 30,10,2, 48,10,2, 95,1,2, 95,1,3, 120,8,2, 129,3,4, 145,20,2, 155,5,3,
-                200,1,2, 200,1,3, 200,1,4, 200,1,5, 200,1,6};
+        int[] coordSuelos = {0,520,1, 30,10,2, 48,10,2, 95,1,2, 95,1,3, 120,8,2, 129,3,4, 145,20,2, 155,4,3, 168,3,3,
+                173,2,6, 500,1,2, 500,1,3, 500,1,4, 500,1,5, 500,1,6};
 
         // Array para las coordenadas de los pinchos.
         int[] coordPinchos = {15,1, 23,1, 38,2, 53,2, 69,1, 77,1, 129,1, 130,1, 131,1, 132,1, 133,1, 134,1, 135,1, 136,1, 137,1,
-                138,1, 139,1, 140,1, 159,3};
+                138,1, 139,1, 140,1, 158,3, 168,1, 174,6};
 
         // Array para las posiciones de los muelles
-        int[] coordMuelles = {93,1, 124,2};
+        int[] coordMuelles = {93,1, 124,2, 170,3};
 
         // Array para las posiciones de las pelotas blancas.
-        int[] coordPelotasBlancas = {12,3};
+        int[] coordPelotasBlancas = {172,5};
 
         // añadimos los suelos
         for (int i = 0; i < coordSuelos.length; i+=3) {
@@ -218,9 +218,16 @@ public class GameScreen extends BaseScreen {
         world.step(delta, 6, 2);
 
         // Comprobamos cuando el personaje está cerca de la pelota blanca.
-        if(player.getX() > 10.5 * Constants.PIXELS_IN_METER && player.getX() < 10.8 * Constants.PIXELS_IN_METER &&
-                player.getY() > 1.2 * Constants.PIXELS_IN_METER) {
-            listaPelotasBlancas.get(0).setVisible(false);
+        if(player.getX() > 171.1 * Constants.PIXELS_IN_METER && player.getX() < 171.6 * Constants.PIXELS_IN_METER  &&
+                player.getY() < 5.5 * Constants.PIXELS_IN_METER) {
+
+                player.jump((int) (es.danirod.jddprototype.game.Constants.IMPULSE_JUMP * -0.9), true);
+                listaPelotasBlancas.get(0).setVisible(false);
+                // System.out.println("Voy a dar el impulso para abajo.");
+
+                // System.out.println("He dado el impulso para abajo.");
+
+
         }
 
 
@@ -326,9 +333,8 @@ public class GameScreen extends BaseScreen {
 
             // el jugador colisiona con un muelle y salta automaticamente con mayor impulso
             if (areCollided(contact, "player", "muelle")) {
-                player.jump((int)(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP * 1.5));
+                player.jump((int)(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP * 1.5), false);
             }
-
 
         }
 

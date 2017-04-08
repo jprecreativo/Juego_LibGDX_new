@@ -104,13 +104,13 @@ public class PlayerEntity extends Actor {
     public void act(float delta) {
         // Jump when you touch the screen.
         if (Gdx.input.justTouched()) {
-            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP);
+            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP, false);
         }
 
         // Jump if we were required to jump during a collision.
         if (mustJump) {
             mustJump = false;
-            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP);
+            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP, false);
         }
 
         // If the player is alive, change the speed so that it moves.
@@ -129,19 +129,25 @@ public class PlayerEntity extends Actor {
     }
 
 
-
-    public void jump(int impulso) {
+    /**
+     * Hará que salte el jugador.
+     * @param impulso Impulso con el que salta (puede ser negativo).
+     * @param flag Si vale true, el impuso será negativo y no comprobaremos si está saltando.
+     */
+    public void jump(int impulso, boolean flag) {
         // The player must not be already jumping and be alive to jump.
-        if (!jumping && alive) {
-            jumping = true;
 
+        if(alive && (flag || !jumping)) {
             // Apply an impulse to the player. This will make change the velocity almost
             // at the moment unlike using forces, which gradually changes the force used
             // during the jump. We get the position becase we have to apply the impulse
             // at the center of mass of the body.
+            jumping = true;
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, impulso, position.x, position.y, true);
         }
+
+
     }
 
     public void detach() {
