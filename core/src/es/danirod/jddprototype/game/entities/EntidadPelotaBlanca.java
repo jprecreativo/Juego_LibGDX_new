@@ -26,8 +26,7 @@ public class EntidadPelotaBlanca extends Actor {
     // el cuerpo asignado a la pelota
     private Body body;
 
-    // caracteristicas asignadas al muello
-    private Fixture fixture;
+
 
 
 
@@ -58,10 +57,7 @@ public class EntidadPelotaBlanca extends Actor {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
-    public void detach() {
-        body.destroyFixture(fixture);
-        world.destroyBody(body);
-    }
+
 
 
 }

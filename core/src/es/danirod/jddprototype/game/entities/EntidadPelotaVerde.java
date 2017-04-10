@@ -25,8 +25,7 @@ public class EntidadPelotaVerde extends Actor {
     // el cuerpo asignado a la pelota
     private Body body;
 
-    // caracteristicas asignadas al muello
-    private Fixture fixture;
+
 
 
 
@@ -49,7 +48,7 @@ public class EntidadPelotaVerde extends Actor {
 
         // posicionamos el actor en la pantalla
         setPosition((x - 0.1f) * Constants.PIXELS_IN_METER, y * Constants.PIXELS_IN_METER);
-        setSize(Constants.PIXELS_IN_METER / 3, Constants.PIXELS_IN_METER / 3);
+        setSize(Constants.PIXELS_IN_METER / 2.5f, Constants.PIXELS_IN_METER / 2.5f);
     }
 
     @Override
@@ -57,8 +56,5 @@ public class EntidadPelotaVerde extends Actor {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
-    public void detach() {
-        body.destroyFixture(fixture);
-        world.destroyBody(body);
-    }
+
 }
