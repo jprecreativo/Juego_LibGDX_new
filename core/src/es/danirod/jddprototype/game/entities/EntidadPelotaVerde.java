@@ -5,17 +5,16 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import es.danirod.jddprototype.game.Constants;
 
 /**
- * Created by jose_ on 01/04/2017.
+ * Created by jose_ on 10/04/2017.
  */
 
-public class EntidadPelotaBlanca extends Actor {
+public class EntidadPelotaVerde extends Actor {
 
     // textura de la pelota
     private Texture texture;
@@ -31,7 +30,7 @@ public class EntidadPelotaBlanca extends Actor {
 
 
 
-    public EntidadPelotaBlanca(World world, Texture texture, float x, float y) {
+    public EntidadPelotaVerde(World world, Texture texture, float x, float y) {
         this.world = world;
         this.texture = texture;
 
@@ -62,6 +61,4 @@ public class EntidadPelotaBlanca extends Actor {
         body.destroyFixture(fixture);
         world.destroyBody(body);
     }
-
-
 }
