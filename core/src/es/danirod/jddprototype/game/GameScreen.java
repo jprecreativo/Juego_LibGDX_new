@@ -120,23 +120,24 @@ public class GameScreen extends BaseScreen {
         player = factory.createPlayer(world, new Vector2(1.5f, 1.5f));
 
         // Array para las dimesiones de los suelos.
-        int[] coordSuelos = {0,250,1, 257,23,1, 284,80,1, 375,150,1, 30,10,2, 48,10,2, 95,1,2, 95,1,3, 120,8,2, 129,3,4, 145,20,2, 155,4,3, 168,3,3,
-                173,2,6, 178,8,2, 186,7,3, 195,2,5, 200,22,2, 269,10,4, 294,2,2, 300,2,3, 306,2,4, 311,2,5, 320,2,2, 326,2,3,
-                332,2,4, 337,2,5, 341,2,4, 346,2,3, 500,1,2, 500,1,3, 500,1,4, 500,1,5, 500,1,6};
+        int[] coordSuelos = {0,250,1, 257,23,1, 284,80,1, 375,125,1, 500,5,2, 500,5,3, 500,5,4, 500,5,7, 500,5,8, 505,10,5,
+                505,10,6, 30,10,2, 48,10,2, 95,1,2, 95,1,3, 120,8,2, 129,3,4, 145,20,2, 155,4,3, 168,3,3, 173,2,6, 178,8,2,
+                186,7,3, 195,2,5, 200,22,2, 269,10,4, 294,2,2, 300,2,3, 306,2,4, 311,2,5, 320,2,2, 326,2,3, 332,2,4, 337,2,5,
+                341,2,4, 346,2,3};
 
         // Array para las coordenadas de los pinchos.
         int[] coordPinchos = {/* 15,1, 23,1, 38,2, 53,2, 69,1, 77,1, 129,1, 130,1, 131,1, 132,1, 133,1, 134,1, 135,1, 136,1, 137,1,
-                138,1, 139,1, 140,1, 158,3, 168,1, 174,6, 196,5, 206,2, 211,2, 218,2 */ 274,4, 307,1, 308,1, 312,5, 347,3, 351,1,
-                352,1, 353,1, 380,1};
+                138,1, 139,1, 140,1, 158,3, 168,1, 174,6, 196,5, 206,2, 211,2, 218,2, 274,4, 307,1, 308,1, 312,5, 347,3, 351,1,
+                352,1, 353,1, 388,1, 389,1, 390,1 */};
 
         // Array para las posiciones de los muelles
-        int[] coordMuelles = {93,1, 124,2, 170,3, 189,3, 249,1, 264,1};
+        int[] coordMuelles = {93,1, 124,2, 170,3, 189,3, 249,1, 264,1, 410,1};
 
         // Array para las posiciones de las pelotas blancas.
         int[] coordPelotasBlancas = {172,5, 282,3, 309,4};
 
         // Array para las posiciones de las pelotas verdes.
-        int[] coordPelotasVerdes = {349,4, 366,2};
+        int[] coordPelotasVerdes = {349,4, 366,2, 389,2};
 
         // añadimos los suelos
         for (int i = 0; i < coordSuelos.length; i+=3) {
@@ -147,6 +148,10 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < coordPinchos.length; i+=2) {
             spikeList.add(factory.createSpikes(world, coordPinchos[i], coordPinchos[i+1]));
         }
+
+        // En este for se añaden los pinchos finales, cuando se debe de ir "flotando."
+        for(int i = 411; i < 500; i++)
+            spikeList.add(factory.createSpikes(world, i, 1));
 
         // añadimos los muelles
         for (int i = 0; i < coordMuelles.length; i+=2) {
@@ -316,14 +321,21 @@ public class GameScreen extends BaseScreen {
         }
 
         // Comprobamos cuando el personaje está cerca de la pelota verde 2.
-        /* if(player.getX() > 374.1 * Constants.PIXELS_IN_METER && player.getX() < 374.6 * Constants.PIXELS_IN_METER &&
-                player.getY() > 3 && player.getY() < 3.5 * Constants.PIXELS_IN_METER) {
+        if(player.getX() > 388.1 * Constants.PIXELS_IN_METER && player.getX() < 388.6 * Constants.PIXELS_IN_METER &&
+                player.getY() > 2.8 && player.getY() < 3.2 * Constants.PIXELS_IN_METER) {
 
             if(player.isAlive()) {
                 listaPelotasVerdes.get(2).setSize(Constants.PIXELS_IN_METER / 2, Constants.PIXELS_IN_METER / 2);
                 player.jump((int) (es.danirod.jddprototype.game.Constants.IMPULSE_JUMP * 0.5), true);
             }
-        } */
+        }
+
+        // Llegado a este punto, el personaje deberá seguir "flotando".
+        if(player.getX() > 410 * Constants.PIXELS_IN_METER) {
+            player.setJumping(false);   // Se establece que no se está saltando para poder dar saltos continuados.
+            world.setGravity(new Vector2(0, -25.5f));   // Se modifica la gravedad para hacer que se vaya "flotando".
+        }
+
 
         // Make the camera follow the player. As long as the player is alive, if the player is
         // moving, make the camera move at the same speed, so that the player is always
