@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.controlador;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -24,6 +24,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import es.danirod.jddprototype.game.vista.BaseScreen;
 
 /**
  * This screen is executed when you start the screen and it is used to load things in the
@@ -42,7 +44,7 @@ public class LoadingScreen extends BaseScreen {
     /** This is the label that we use to display some text on the screen. */
     private Label loading;
 
-    public LoadingScreen(es.danirod.jddprototype.game.MainGame game) {
+    public LoadingScreen(es.danirod.jddprototype.game.controlador.MainGame game) {
         super(game);
 
         // Set up the stage and the skin. See GameOverScreen for more comments on this.
@@ -51,7 +53,8 @@ public class LoadingScreen extends BaseScreen {
 
         // Create some loading text using this skin file and position it on screen.
         loading = new Label("Cargando...", skin);
-        loading.setPosition(320 - loading.getWidth() / 2, 180 - loading.getHeight() / 2);
+        //loading.setPosition(320 - loading.getWidth() / 2, 180 - loading.getHeight() / 2);
+        loading.setPosition(250, 180 - loading.getHeight() / 2);
         stage.addActor(loading);
     }
 

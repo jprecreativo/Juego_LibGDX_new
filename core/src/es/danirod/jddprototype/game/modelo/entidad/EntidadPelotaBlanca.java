@@ -1,15 +1,14 @@
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.modelo.entidad;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import es.danirod.jddprototype.game.Constants;
+import es.danirod.jddprototype.game.modelo.Constants;
 
 /**
  * Created by jose_ on 01/04/2017.
@@ -26,14 +25,11 @@ public class EntidadPelotaBlanca extends Actor {
     // el cuerpo asignado a la pelota
     private Body body;
 
-
-
-
+    private Fixture fixture;
 
     public EntidadPelotaBlanca(World world, Texture texture, float x, float y) {
         this.world = world;
         this.texture = texture;
-
 
         // creamos el cuerpo
         BodyDef def = new BodyDef();
@@ -57,7 +53,9 @@ public class EntidadPelotaBlanca extends Actor {
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
-
-
+    public void detach() {
+        //body.destroyFixture(fixture);
+        world.destroyBody(body);
+    }
 
 }

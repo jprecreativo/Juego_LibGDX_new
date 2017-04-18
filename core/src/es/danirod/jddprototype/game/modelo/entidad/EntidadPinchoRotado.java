@@ -1,25 +1,8 @@
-/*
- * This file is part of Jump Don't Die
- * Copyright (C) 2015 Dani Rodríguez <danirod@outlook.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.modelo.entidad;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -27,18 +10,19 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 
-import es.danirod.jddprototype.game.Constants;
+import es.danirod.jddprototype.game.modelo.Constants;
 
 /**
- * This is the actor that will make you lose if you touch it. Spikes are on the screen and you
- * have to avoid touching them. If you touch them, you lose at the moment, just like in the
- * original game.
+ * Created by david on 14/04/2017.
  */
-public class SpikeEntity extends Actor {
+
+public class EntidadPinchoRotado extends Actor {
 
     /** Spike texture. */
     private Texture texture;
+    private TextureRegion textureRegion;
 
     /** The world this spike is in. */
     private World world;
@@ -57,9 +41,10 @@ public class SpikeEntity extends Actor {
      * @param x  horizontal position for the center of the spike (meters)
      * @param y  vertical position for the base of the spike (meters)
      */
-    public SpikeEntity(World world, Texture texture, float x, float y) {
+    public EntidadPinchoRotado(World world, Texture texture, float x, float y) {
         this.world = world;
         this.texture = texture;
+        textureRegion = new TextureRegion(texture);
 
         // Create the body.
         BodyDef def = new BodyDef();                // (1) Give it some definition.
@@ -80,11 +65,17 @@ public class SpikeEntity extends Actor {
         // Position the actor in the screen by converting the meters to pixels.
         setPosition((x - 0.5f) * Constants.PIXELS_IN_METER, y * Constants.PIXELS_IN_METER);
         setSize(Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER);
+
+        // atributos y accion para rotar el actor
+        setOrigin(getWidth()/2, getHeight()/2); // se rota por el origen y lo definimos al centro del actor (por defecto, el origen es la esquina inferior izquierda (0,0))
+        RotateByAction rba = new RotateByAction();
+        rba.setAmount(180); // rota el actor 180º
+        this.addAction(rba); // añade la accion al actor
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+        batch.draw(textureRegion, getX(), getY(), getOriginX(), getOriginY(), getWidth(), getHeight(), getScaleX(), getScaleY(), getRotation());
     }
 
     public void detach() {

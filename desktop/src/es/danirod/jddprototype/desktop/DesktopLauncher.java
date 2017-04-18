@@ -19,7 +19,7 @@ package es.danirod.jddprototype.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import es.danirod.jddprototype.game.MainGame;
+import es.danirod.jddprototype.game.controlador.MainGame;
 
 /**
  * This is the launcher that is used to show the game in desktop computers. While the point of this

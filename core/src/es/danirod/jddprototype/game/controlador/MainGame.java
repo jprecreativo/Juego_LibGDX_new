@@ -16,13 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.controlador;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+
+import es.danirod.jddprototype.game.vista.BaseScreen;
+import es.danirod.jddprototype.game.vista.CreditsScreen;
+import es.danirod.jddprototype.game.vista.GameOverScreen;
+import es.danirod.jddprototype.game.vista.GameScreen;
+import es.danirod.jddprototype.game.vista.PantallaMejPuntuaciones;
+import es.danirod.jddprototype.game.vista.PantallaOpciones;
+import es.danirod.jddprototype.game.vista.PantallaPuntuacion;
+import es.danirod.jddprototype.game.vista.MenuScreen;
 
 /**
  * This is our main game. This is the class that we pass to the Application in Android launcher
@@ -39,7 +47,8 @@ public class MainGame extends Game {
      * just public variables. For instance, you could create an ArrayList or maybe use some
      * structure such as a map where you can associate a number or a string to a screen.
      */
-    public BaseScreen loadingScreen, menuScreen, gameScreen, gameOverScreen, creditsScreen, pantallaOpciones;
+    public BaseScreen loadingScreen, menuScreen, gameScreen, gameOverScreen, creditsScreen, pantallaOpciones, pantallaPuntuacion
+            , pantallaMejPuntuaciones;
 
     @Override
     public void create() {
@@ -47,18 +56,27 @@ public class MainGame extends Game {
         // inside the LoadingScreen screen. Remember to put the name of the asset in the first
         // argument, then the type of the asset in the second argument.
         manager = new AssetManager();
+
         manager.load("floor.png", Texture.class);
         manager.load("gameover.png", Texture.class);
         manager.load("overfloor.png", Texture.class);
         manager.load("logo.png", Texture.class);
         manager.load("spike.png", Texture.class);
         manager.load("player.png", Texture.class);
+        manager.load("player2.png", Texture.class);
+        manager.load("player3.png", Texture.class);
         manager.load("muelle.png", Texture.class);
-        manager.load("audio/die.ogg", Sound.class);
-        manager.load("audio/jump.ogg", Sound.class);
-        manager.load("audio/song.ogg", Music.class);
         manager.load("pelotaBlancaPequeña.png", Texture.class);
         manager.load("pelotaVerde.png", Texture.class);
+        manager.load("flecha.png", Texture.class);
+        manager.load("meta.png", Texture.class);
+        manager.load("noviste.png", Texture.class);
+
+        manager.load("audio/die.ogg", Music.class);
+        manager.load("audio/jump.ogg", Music.class);
+        manager.load("audio/song.ogg", Music.class);
+        manager.load("audio/victoria.ogg", Music.class);
+        manager.load("audio/suuu.ogg", Music.class);
 
         // Enter the loading screen to load the assets.
         loadingScreen = new LoadingScreen(this);
@@ -71,11 +89,13 @@ public class MainGame extends Game {
      * screen now that everything is loaded.
      */
     public void finishLoading() {
-        menuScreen = new es.danirod.jddprototype.game.MenuScreen(this);
+        menuScreen = new MenuScreen(this);
         gameScreen = new GameScreen(this);
         gameOverScreen = new GameOverScreen(this);
         creditsScreen = new CreditsScreen(this);
         pantallaOpciones = new PantallaOpciones(this);
+        pantallaPuntuacion = new PantallaPuntuacion(this);
+        pantallaMejPuntuaciones = new PantallaMejPuntuaciones(this);
         setScreen(menuScreen);
     }
 

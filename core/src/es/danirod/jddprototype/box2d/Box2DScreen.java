@@ -31,13 +31,16 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
+import es.danirod.jddprototype.game.controlador.MainGame;
+import es.danirod.jddprototype.game.vista.BaseScreen;
+
 /**
  * This screen is a prototype of the game using only Box2D. It uses a renderer to show you the
  * things that are hidden in Box2D usually. There are a lot of variables here, so don't judge me.
  */
-public class Box2DScreen extends es.danirod.jddprototype.game.BaseScreen {
+public class Box2DScreen extends BaseScreen {
 
-    public Box2DScreen(es.danirod.jddprototype.game.MainGame game) {
+    public Box2DScreen(MainGame game) {
         super(game);
     }
 

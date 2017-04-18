@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.modelo.entidad;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -27,7 +27,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import es.danirod.jddprototype.game.Constants;
+import es.danirod.jddprototype.game.modelo.Constants;
 
 /**
  * This entity represents the floor. The player and the spikes are above the floor. You cannot go

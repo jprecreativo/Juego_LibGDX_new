@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.modelo.entidad;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -28,6 +28,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import es.danirod.jddprototype.game.modelo.VariablesGlobales;
+import es.danirod.jddprototype.game.modelo.Constants;
 
 /**
  * This is the body the user controls. It has to jump and don't die, like the title of the game
@@ -69,6 +72,9 @@ public class PlayerEntity extends Actor {
      */
     private boolean mustJump = false;
 
+    // velocidad en el eje Y antes de detenerse el personaje
+    private float v_parar;
+
     public PlayerEntity(World world, Texture texture, Vector2 position) {
         this.world = world;
         this.texture = texture;
@@ -87,7 +93,7 @@ public class PlayerEntity extends Actor {
         box.dispose();                              // (5) Destroy the shape.
 
         // Set the size to a value that is big enough to be rendered on the screen.
-        setSize(es.danirod.jddprototype.game.Constants.PIXELS_IN_METER, es.danirod.jddprototype.game.Constants.PIXELS_IN_METER);
+        setSize(Constants.PIXELS_IN_METER, Constants.PIXELS_IN_METER);
     }
 
     @Override
@@ -95,8 +101,8 @@ public class PlayerEntity extends Actor {
         // Always update the position of the actor when you are going to draw it, so that the
         // position of the actor on the screen is as accurate as possible to the current position
         // of the Box2D body.
-        setPosition((body.getPosition().x - 0.5f) * es.danirod.jddprototype.game.Constants.PIXELS_IN_METER,
-                    (body.getPosition().y - 0.5f) * es.danirod.jddprototype.game.Constants.PIXELS_IN_METER);
+        setPosition((body.getPosition().x - 0.5f) * Constants.PIXELS_IN_METER,
+                    (body.getPosition().y - 0.5f) * Constants.PIXELS_IN_METER);
         batch.draw(texture, getX(), getY(), getWidth(), getHeight());
     }
 
@@ -104,13 +110,13 @@ public class PlayerEntity extends Actor {
     public void act(float delta) {
         // Jump when you touch the screen.
         if (Gdx.input.justTouched()) {
-            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP, false);
+            jump(Constants.IMPULSE_JUMP, false);
         }
 
         // Jump if we were required to jump during a collision.
         if (mustJump) {
             mustJump = false;
-            jump(es.danirod.jddprototype.game.Constants.IMPULSE_JUMP, false);
+            jump(Constants.IMPULSE_JUMP, false);
         }
 
         // If the player is alive, change the speed so that it moves.
@@ -119,12 +125,12 @@ public class PlayerEntity extends Actor {
             // this speed has to be managed by the forces applied to the player. If we modify
             // Y speed, jumps can get very very weir.d
             float speedY = body.getLinearVelocity().y;
-            body.setLinearVelocity(es.danirod.jddprototype.game.Constants.PLAYER_SPEED, speedY);
+            body.setLinearVelocity(Constants.PLAYER_SPEED, speedY);
         }
 
         // If the player is jumping, apply some opposite force so that the player falls faster.
         if (jumping) {
-            body.applyForceToCenter(0, -es.danirod.jddprototype.game.Constants.IMPULSE_JUMP * 1.15f, true);
+            body.applyForceToCenter(0, -Constants.IMPULSE_JUMP * 1.15f, true);
         }
     }
 
@@ -145,6 +151,7 @@ public class PlayerEntity extends Actor {
             jumping = true;
             Vector2 position = body.getPosition();
             body.applyLinearImpulse(0, impulso, position.x, position.y, true);
+            VariablesGlobales.saltos++;
         }
 
 
@@ -153,6 +160,17 @@ public class PlayerEntity extends Actor {
     public void detach() {
         body.destroyFixture(fixture);
         world.destroyBody(body);
+    }
+
+    // vuelve a moverse el personaje
+    public void reanudar() {
+        body.setLinearVelocity(Constants.PLAYER_SPEED, v_parar);
+    }
+
+    // detiene al personaje
+    public void parar() {
+        v_parar = body.getLinearVelocity().y;
+        body.setLinearVelocity(0, 0);
     }
 
     // Getter and setter festival below here.
@@ -172,4 +190,5 @@ public class PlayerEntity extends Actor {
     public void setMustJump(boolean mustJump) {
         this.mustJump = mustJump;
     }
+
 }

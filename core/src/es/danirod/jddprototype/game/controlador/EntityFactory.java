@@ -16,12 +16,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game.entities;
+package es.danirod.jddprototype.game.controlador;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+
+import es.danirod.jddprototype.game.modelo.entidad.EntidadMuelle;
+import es.danirod.jddprototype.game.modelo.entidad.EntidadPelotaBlanca;
+import es.danirod.jddprototype.game.modelo.entidad.EntidadPelotaVerde;
+import es.danirod.jddprototype.game.modelo.entidad.EntidadPinchoRotado;
+import es.danirod.jddprototype.game.modelo.entidad.FloorEntity;
+import es.danirod.jddprototype.game.modelo.entidad.PlayerEntity;
+import es.danirod.jddprototype.game.modelo.entidad.SpikeEntity;
+import es.danirod.jddprototype.game.modelo.VariablesGlobales;
 
 /**
  * This class creates entities using Factory Methods.
@@ -45,7 +54,13 @@ public class EntityFactory {
      * @return          a player.
      */
     public PlayerEntity createPlayer(World world, Vector2 position) {
-        Texture playerTexture = manager.get("player.png");
+        Texture playerTexture;
+        if(VariablesGlobales.personaje == 0)
+            playerTexture = manager.get("player.png");
+        else if(VariablesGlobales.personaje == 1)
+            playerTexture = manager.get("player2.png");
+        else
+            playerTexture = manager.get("player3.png");
         return new PlayerEntity(world, playerTexture, position);
     }
 
@@ -75,22 +90,23 @@ public class EntityFactory {
         return new SpikeEntity(world, spikeTexture, x, y);
     }
 
+    public EntidadPinchoRotado creaPinchosRotados(World world, float x, float y) {
+        Texture spikeTexture = manager.get("spike.png");
+        return new EntidadPinchoRotado(world, spikeTexture, x, y);
+    }
+
     public EntidadMuelle creaMuelles(World world, float x, float y) {
         Texture texturaMuelle = manager.get("muelle.png");
         return new EntidadMuelle(world, texturaMuelle, x, y);
     }
 
     public EntidadPelotaBlanca crearPelotaBlanca(World world, float x, float y) {
-
         Texture texturaPelotaBlanca = manager.get("pelotaBlancaPequeña.png");
-
-        return (new EntidadPelotaBlanca(world, texturaPelotaBlanca, x, y));
+        return new EntidadPelotaBlanca(world, texturaPelotaBlanca, x, y);
     }
 
     public EntidadPelotaVerde crearPelotaVerde(World world, float x, float y) {
-
         Texture texturaPelotaBlanca = manager.get("pelotaVerde.png");
-
-        return (new EntidadPelotaVerde(world, texturaPelotaBlanca, x, y));
+        return new EntidadPelotaVerde(world, texturaPelotaBlanca, x, y);
     }
 }

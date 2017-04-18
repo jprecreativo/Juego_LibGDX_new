@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.modelo;
 
 /**
  * Some class for defining constant values used in the game, so that they can be changed from
@@ -49,4 +49,21 @@ public class Constants {
      * Esta constante es usada para ajustar la velocidad de la cámara a la velocidad del personaje.
      */
     public static final float VELOCITY_DIFF = 0.05f;
+
+    // puntuacion base
+    public static final int PUNTOS_BASE = 1000000;
+
+    // puntos perdidos por cada muerte
+    public static final int PUNTOS_MUERTE = 10000;
+
+    // puntos perdidos por cada salto. es un numero pequeño porque es simplemente para marcar la diferencia entre
+    // dos que hayan muerto el mismo numero de veces
+    public static final int PUNTOS_SALTO = 100;
+
+    // posiciones de los checkpoints del personaje. cada par de numeros es un posicion
+    public static final float[] POSICION_JUGADOR = {1.5f,1.5f, 97.5f,1.5f, 230.5f,1.5f, 395.5f,1.5f, 500.5f,4.5f};
+
+    // posicion de los checkpoints del escenario. cada numero es la coordenada X del escenario
+    public static final int[] POSICION_ESCENARIO = {0, 96, 229, 394, 499};
+
 }

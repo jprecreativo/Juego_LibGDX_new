@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.vista;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -35,7 +35,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
  * screen was done by copying the code from GameOverScreen. All the cool comments have been
  * copy-pasted.
  */
-public class MenuScreen extends BaseScreen {
+public class MenuScreen extends es.danirod.jddprototype.game.vista.BaseScreen {
 
     /** The stage where all the buttons are added. */
     private Stage stage;
@@ -47,9 +47,9 @@ public class MenuScreen extends BaseScreen {
     private Image logo;
 
     /** The play button you use to jump to the game screen. */
-    private TextButton play, opciones, credits;
+    private TextButton play, opciones, credits, salir;
 
-    public MenuScreen(final MainGame game) {
+    public MenuScreen(final es.danirod.jddprototype.game.controlador.MainGame game) {
         super(game);
 
         // Create a new stage, as usual.
@@ -65,6 +65,7 @@ public class MenuScreen extends BaseScreen {
         play = new TextButton("Jugar", skin);
         opciones = new TextButton("Opciones", skin);
         credits = new TextButton("Creditos", skin);
+        salir = new TextButton("Salir", skin);
 
         // Also, create an image. Images are actors that only display some texture. Useful if you
         // want to display a texture in a Scene2D based screen but you don't want to rewrite code.
@@ -95,22 +96,32 @@ public class MenuScreen extends BaseScreen {
             }
         });
 
+        salir.addCaptureListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
+
         // Now I position things on screen. Sorry for making this the hardest part of this screen.
         // I position things on the screen so that they look centered. This is why I make the
         // buttons the same size.
-        logo.setPosition(440 - logo.getWidth() / 2, 320 - logo.getHeight());
-        play.setSize(200, 80);
-        opciones.setSize(200, 80);
-        credits.setSize(200, 80);
-        play.setPosition(40, 240);
-        opciones.setPosition(40, 140);
-        credits.setPosition(40, 40);
+        logo.setPosition(440 - logo.getWidth() / 2, 290 - logo.getHeight());
+        play.setSize(200, 50);
+        opciones.setSize(200, 50);
+        credits.setSize(200, 50);
+        salir.setSize(200, 50);
+        play.setPosition(40, 252.5f);
+        opciones.setPosition(40, 187.5f);
+        credits.setPosition(40, 122.5f);
+        salir.setPosition(40, 57.5f);
 
         // Do not forget to add actors to the stage or we wouldn't see anything.
         stage.addActor(play);
         stage.addActor(opciones);
         stage.addActor(logo);
         stage.addActor(credits);
+        stage.addActor(salir);
     }
 
     @Override

@@ -16,9 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.vista;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,7 +32,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 /**
  * Extra screen to show the credits for the work.
  */
-public class CreditsScreen extends BaseScreen {
+public class CreditsScreen extends es.danirod.jddprototype.game.vista.BaseScreen {
 
     /** The stage where all the buttons are added. */
     private Stage stage;
@@ -45,7 +46,7 @@ public class CreditsScreen extends BaseScreen {
     /** The back button you use to jump to the game screen. */
     private TextButton back;
 
-    public CreditsScreen(final es.danirod.jddprototype.game.MainGame game) {
+    public CreditsScreen(final es.danirod.jddprototype.game.controlador.MainGame game) {
         super(game);
 
         // Create a new stage, as usual.
@@ -108,6 +109,11 @@ public class CreditsScreen extends BaseScreen {
         // making the Stage the default input processor for this game, it is now possible to
         // click on buttons and even to type on input fields.
         Gdx.input.setInputProcessor(stage);
+
+        // capturo la tecla Atras
+        Gdx.input.setCatchBackKey(true);
+        if(Gdx.input.isKeyPressed(Input.Keys.BACK))
+            game.setScreen(game.menuScreen);
     }
 
     @Override

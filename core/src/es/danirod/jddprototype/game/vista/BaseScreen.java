@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package es.danirod.jddprototype.game;
+package es.danirod.jddprototype.game.vista;
 
 import com.badlogic.gdx.Screen;
 
@@ -32,9 +32,9 @@ public abstract class BaseScreen implements Screen {
      * every screen can be connected to the game, because every screen can access the game
      * instance.
      */
-    protected MainGame game;
+    protected es.danirod.jddprototype.game.controlador.MainGame game;
 
-    public BaseScreen(MainGame game) {
+    public BaseScreen(es.danirod.jddprototype.game.controlador.MainGame game) {
         this.game = game;
     }
 

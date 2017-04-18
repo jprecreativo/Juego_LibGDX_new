@@ -24,8 +24,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import es.danirod.jddprototype.game.BaseScreen;
-import es.danirod.jddprototype.game.MainGame;
+import es.danirod.jddprototype.game.vista.BaseScreen;
+import es.danirod.jddprototype.game.controlador.MainGame;
 
 /**
  * This screen uses Scene2D to show how it works.
